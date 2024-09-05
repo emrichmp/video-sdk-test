@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import SpeakerScreenContainer from "./screens/speakerScreen/SpeakerScreenContainer";
+import ViewerScreenContainer from "./screens/ViewerScreenContainer";
+import WelcomeScreenContainer from "./screens/WelcomeScreenContainer";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+const App = () => {
+  const [appData, setAppData] = useState({ meetingId: null, mode: null });
+
+  return setAppData.meetingId ? (
+    appData.mode === "CONFERENCE" ? (
+      <SpeakerScreenContainer meetingId={appData.meetingId} />
+    ) : (
+      <ViewerScreenContainer meetingId={appData.meetingId} />
+    )
+  ) : (
+    <WelcomeScreenContainer setAppData={setAppData} />
   );
-}
+};
 
 export default App;
+
+//Conditional Render - determines if speaker or viewer and shows the corresponding component
+//based on if there is meetingId and the users mode
+// if no meeting Id then will show welcome screen
